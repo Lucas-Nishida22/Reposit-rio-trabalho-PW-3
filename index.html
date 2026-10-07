@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Catálogo de Produtos</title>
+
+    <style>
+        .divCatalogo {
+            display: grid;
+            gap: 20px 15px;
+            grid-template-columns: repeat(3, 1fr);
+            padding: 20px;
+        }
+
+
+        .cardProduto {
+    background-color: white;
+    color: #222;
+    border-radius: 12px;
+    text-align: center;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s;
+}
+
+        .cabecalho {
+    background-color: #222;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+        .cardProduto img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: white;
+}
+
+        .cardInfo {
+            padding: 20px;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        #titulo {
+            font-size: 25px;
+            padding: 10px 20px;
+            
+        }
+
+        #divTitulo {
+    color: white;
+    font-size: 28px;
+    margin: 0;
+}
+        
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+
+        }
+        input {
+    width: 280px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+}
+    </style>
+</head>
+
+<body>
+    <div class="cabecalho">
+<div id="divTitulo">
+    <h3 id="titulo">Catálogo de Produtos</h3>
+</div>
+
+    <input 
+        type="text" 
+        id="idbusca" 
+        placeholder="Digite o preço, marca ou modelo"
+        oninput="pesquisar()"
+    ></div>
+
+    <div class="divCatalogo" id="divCatalogo"></div>
+
+
+    <script>
+
+        const catalogoProdutos = [
+            [
+                'Luva Maximum Mxm',
+                'Luva 14oz para treinos de qualquer tipo, com qualidade impecável.',
+                'R$ 299,99',
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoBTB_9k6azj4UBiDN47g-bvahzkB4f2adpC14PRYQHQ&s=10'
+            ],
+
+            [
+                'Luva Pretorian FX2',
+                'Luva 14oz para treinos de qualquer tipo, prende o dedão para não ocorrer acidentes, pulso solto, espuma ótima para amortecimento da mão.',
+                'R$ 199,99',
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pou68EaCDfMbXt2bGWwvQh8s3Bcr4AFzGNvFfYbBGQ&s'
+            ],
+
+            [
+                'Bandagem Maximum 3 Metros',
+                'Bandagem perfeita para quem treina e não quer se machucar.',
+                'R$ 44,99',
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT03yw_MseJ61FCnIlalzZuCZmxsD1chM8aVislJKXZWA&s'
+            ],
+
+            [
+                'Bandagem Pretorian 5 Metros',
+                'Bandagem perfeita para quem treina pesado e tem dores no pulso e nos nódulos dos dedos.',
+                'R$ 59,99',
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQufmxAznOEJtY7d5chHebSLhjjwYaz9FYTLPkin1vnMA&s'
+            ],
+
+            [
+                'Caneleira Maximum',
+                'Caneleira para sparrings leves e pesados.',
+                'R$ 349,99',
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPe78BB5IY0L0bgXEpAdSMyKtCGGjlS8QZj5sqThn28g&s'
+            ],
+
+            [
+                'Protetor Bucal Maximum',
+                'Ideal para quem não quer se machucar nos sparrings.',
+                'R$ 39,99',
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUk1Wg8IqJCcTxO8uwFjHBgOIF8T1mPg2n2d2jNV8o-g&s'
+            ],
+
+            [
+                'Mochila Pretorian',
+                'Ideal para você levar seus equipamentos para o treino.',
+                'R$ 299,99',
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQi-rg1CTMVf-CoRtPK8Q-UykYs31VapatKUZtQtKZFVg&s=10'
+            ]
+        ];
+
+
+        const divCatalogo = document.getElementById('divCatalogo');
+
+
+        function pesquisar() {
+
+            const busca = document
+                .getElementById('idbusca')
+                .value
+                .toLowerCase()
+                .trim();
+
+
+            divCatalogo.innerHTML = '';
+
+
+            catalogoProdutos.forEach((produto) => {
+
+                if (
+                    produto[0].toLowerCase().includes(busca) ||
+                    produto[1].toLowerCase().includes(busca) ||
+                    produto[2].toLowerCase().includes(busca)
+                ) {
+
+                    const card = document.createElement('div');
+
+                    card.className = 'cardProduto';
+
+
+                    card.innerHTML = `
+                        <img src="${produto[3]}" alt="${produto[0]}">
+
+                        <div class="cardInfo">
+                            <strong>${produto[0]}</strong><br>
+                            ${produto[1]}<br>
+                            <strong>${produto[2]}</strong>
+                        </div>
+                    `;
+
+
+                    divCatalogo.append(card);
+                }
+            });
+        }
+
+
+        // Mostra todos os produtos quando a página abre
+        pesquisar();
+
+    </script>
+
+</body>
+
+</html>
